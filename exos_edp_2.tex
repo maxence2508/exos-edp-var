@@ -1,0 +1,323 @@
+\documentclass[a4paper,12pt]{article}
+
+% Packages
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{lipsum} % Pour générer du faux texte. À retirer dans le document final.
+\usepackage{natbib}
+
+% Paramètres de la page
+\geometry{top=2.5cm, bottom=2.5cm, left=3cm, right=3cm}
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Caucheteux Maxence}
+\lhead{Exercices EDP}
+\rfoot{Page \thepage/\pageref{LastPage}}
+\renewcommand{\headrulewidth}{2pt}
+\renewcommand{\footrulewidth}{1pt}
+\setlength{\parindent}{0pt}
+
+% Titre du document
+\title{Exercices EDP}
+\author{Maxence Caucheteux}
+\date{\today}
+
+% Macros
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\prob}{\mathbb{P}}
+\newcommand{\R}{\mathfrak{R}_0}
+\newcommand{\Hun}{H^1(\Omega)}
+\newcommand{\Ho}{H^1_0(\Omega)}
+\newcommand{\vois}{\mathring{\mathcal{U}}}
+
+\begin{document}
+
+\maketitle
+
+\textbf{Ex 2.18} \\
+On énonce et démontre au préalable deux lemmes. \\
+
+\textbf{Lemme 1} (caractère local de la trace) \\
+Si deux fonctions $u,v \in \Hun \cap C^0(\bar{\Omega})$ coïncident sur un voisinage du bord $\partial \Omega$ (dans $\bar{\Omega}$), alors elles ont même trace. \\
+
+\textbf{Preuve} \\
+Par le cours, par continuité de $u,v$ on a :
+$$\boxed{\gamma(u)=u_{|\partial \Omega} = v_{|\partial \Omega} = \gamma(v)}$$
+Ce qui conclut. \\
+
+\textbf{Lemme 2} \\
+Soient $u,v \in \Hun$ coïncidant sur un voisinage de $\partial \Omega$ (dans $\bar{\Omega}$), alors $u,v$ ont même trace. \\
+
+\textbf{Preuve} \\ 
+Soit $\mathcal{U}$ un voisinage de $\partial \Omega$ (dans $\bar{\Omega}$) tel que $u_{| \vois} = v_{| \vois}$. Par densité de $\Hun \cap C^0(\bar{\Omega})$ dans $H^1(\Omega)$, on prend $(u_n)$ une suite de fonctions $\Hun$ continues sur $\bar{\Omega}$ convergeant vers $u$ dans $L^2$. On a donc a fortiori la convergence de $(u_n_{| \vois})$ vers $u_{| \vois}$ dans $L^2$. Alors, par caractère local de la trace (lemme $1$) et continuité de la trace, 
+$$\gamma(u_n)=\gamma({u_n}_{| \vois}) \xrightarrow[n \rightarrow \infty]{L^2} \gamma(u_{| \vois}) = \gamma(v_{| \vois}) = \gamma(v)$$
+Mais on a également par continuité de la trace :
+$$\gamma(u_n) \xrightarrow[n \rightarrow \infty]{L^2} \gamma(u)$$
+Par unicité de la limite, $\boxed{\gamma(u)=\gamma(v)}$. Ce qui conclut. \\
+
+\textbf{Application de ces lemmes à l'exercice} \\
+Ici, $u$ n'est pas continue sur le disque fermé en question. En effet, il y a une discontinuité en $0$. A priori, il ne suffit donc pas de dire que $u$ est $H^1$ et qu'elle s'annule en le bord du disque pour dire qu'elle est dans $H^1_0(\Omega)$. Mais c'est en fait le cas par les lemmes, qui nous assurent qu'on peut ne pas tenir compte de la discontinuité en $0$. \\
+
+Ainsi, on écrit : \\
+-- Il est clair que $u$ s'annule pour $(x,y)$ de norme euclidienne $1/e$. \\
+
+-- On cherche maintenant à montrer que $u \in \Hun$ \\
+
+$\textbf{1/}$ On a :
+\begin{align*}
+\int_{\Omega} u^2 & = \int_{r=0}^{1/e} \int_{\theta = 0}^{2 \pi} (\ln (-\ln (r)))^2 r dr d \theta \ \ \text{changement polaire licite} \\
+& = 2 \pi \int_{r=0}^{1/e} r (\ln (- \ln (r)))^2 dr \\
+& \leq \int_{r=0}^{1/e} r (\ln r)^2 dr  \ \ \ln x \leq x
+\end{align*}
+On a $r (\ln r)^2 =_{r\rightarrow 0} o(1/\sqrt{r})$ par croissances comparées donc l'intégrale précédente est finie par Riemann. \\
+
+Il faut s'assurer également que $\| \nabla u \|_{L^2} < + \infty$ mais le calcul est plus long. . . \\
+
+On conclut ainsi que $u \in \Ho$. \\
+
+\textbf{Ex 2.19} \\
+$V$ est un sous espace vectoriel de $L^2$ par linéarité du Laplacien et car la fonction nulle, de Laplacien nul, est dans $V$. \\
+
+$(.,.)$ est un \textbf{produit scalaire} sur $V$ : \\
+-- Elle est bien à valeurs dans $\mathbb{R}$. \\
+-- Elle est linéaire à droite et à gauche par linéarité du Laplacien et par linéarité à droite et à gauche du produit scalaire dans $L^2$. \\
+-- Elle est définie, positive essentiellement car le ps de $L^2$ l'est. \\
+
+Soit $(u_n)$ une suite de Cauchy d'éléments de $V$. Comme $\|u_n\|_V^2 = \|u_n\|_2^2 + \| \Delta u_n\|_2^2$, $(u_n)$ et $(\Delta u_n)$ sont deux suites de Cauchy d'éléments de $L^2$. Comme $L^2$ est un Hilbert, ces deux suites y convergent. Il existe donc $u, \tilde{u} \in L^2$ telles que $u_n \underset{n \to \infty}{\longrightarrow} u$ et $\Delta u_n \underset{n \to \infty}{\longrightarrow} \tilde{u}$ dans $L^2$. \\
+
+Il reste à montrer que $u \in V$ et que $(u_n)$ converge vers $u$ dans $V$. À cet effet, on travaille dans $\mathcal{D}'(\Omega)$. La convergence dans $L^2$ implique la convergence dans $\mathcal{D}'(\Omega)$ donc $u_n \underset{n \to \infty}{\longrightarrow} u$ dans $\mathcal{D}'(\Omega)$. Par le cours, on a donc aussi $\Delta u_n \underset{n \to \infty}{\longrightarrow} \Delta u$ dans $\mathcal{D}'(\Omega)$ (résultat sur les distributions). Mais $\Delta u_n \underset{n \to \infty}{\longrightarrow} \tilde{u}$ dans $L^2$ donc également dans $\mathcal{D}'(\Omega)$. Par unicité de la limite dans $\mathcal{D}'(\Omega)$, on obtient que $\boxed{\Delta u = \tilde{u} \in L^2}$, donc $u \in V$. \\
+
+Par ailleurs, comme $\Delta u = \tilde{u}$, on a :
+\begin{align*}
+\|u_n-u\|_V^2 & = \|u_n-u\|_2^2 + \|\Delta (u_n - u)\|_2^2 \\
+& = \|u_n-u\|_2^2 + \|\Delta u_n - \tilde{u}\|_2^2 \underset{n \to \infty}{\longrightarrow} 0 \
+\end{align*}
+par convergence dans $L^2$ de $(u_n)$ vers $u$ et de $(\Delta u_n)$ vers $\tilde{u}$. \\
+
+Ainsi, $u_n \underset{n \to \infty}{\longrightarrow} u$ dans $V$.\\ \textbf{$V$ est donc un espace de Hilbert.} \\
+
+\textbf{Ex 2.21} \\
+J'ai l'impression qu'il manque un $2$ en facteur dans le terme de droite. Je donne la preuve avec la modification de l'énoncé que je suggère. \\
+
+On commence par montrer l'inégalité pour $u \in \mathcal{D}(\mathbb{R})$. \\
+Pour $u \in \mathcal{D}(\mathbb{R})$, on écrit, avec $x_0 \in \mathbb{R}$ réalisant le maximum de $u$, on a :
+\begin{align*}
+\|u\|_{\infty}^2 & = |u(x_0)|^2 \\
+				& = \int_{- \infty}^{x_0} (u^2)'(t) dt \ \ \text{car }u \text{ est à support compact} \\
+			    & = \int_{-\infty}^{x_0} 2u'(t)u(t)dt \\
+			    & \leq \int_{-\infty}^{x_0} 2|u'(t)||u(t)|dt \\
+			    & \leq 2 \left(\int_{- \infty}^{x_0} (u'(t))^2 dt \right) \left( \int_{- \infty}^{x_0} (u(t))^2 dt \right)  \ \ \text{Cauchy-Schwarz} \\
+			    & \boxed{\leq 2 \|u'\|_2 \|u\|_2}
+\end{align*}
+
+On étend à présent cette inégalité à $H^1(\mathbb{R})$. Soit $u \in H^1(\mathbb{R})$. Par densité de $\mathcal{D}(\mathbb{R})$ dans cet espace, il existe une suite $(v_n)$ d'éléments de $\mathcal{D}(\mathbb{R})$ qui converge vers $u$ dans $H^1(\mathbb{R})$. Alors :
+$$\forall n \in \mathbb{N}, \ \|v_n\|_{\infty}^2 \leq 2 \|v_n\|_2 \|v_n' \|_2 \ \ (*) $$
+Comme $\|v_n\|_{H^1}^2 \geq \|v_n\|^2_2$ et $\|v_n\|_{H^1}^2 \geq \|v_n'\|^2_2$, on a par convergence de $(v_n)$ vers $u$ dans $H^1$ :
+$$\|v_n\|_2 \underset{n \to \infty}{\longrightarrow} \|u\| ,\ \ \|v_n'\|_2 \underset{n \to \infty}{\longrightarrow} \|u'\|$$
+
+Par ailleurs, $(v_n)$ est une suite de Cauchy de $L^{\infty}$ par l'inégalité dans le cas $\mathcal{D}(\mathbb{R})$ car $(v_n)$ et $(v_n')$ sont respectivement des suites de Cauchy de $L^2$ car elles y convergent. Comme $L^{\infty}$ est un Banach, $(v_n)$ converge uniformément vers une fonction $\tilde{u} \in L^{\infty}$. \\
+
+On montre alors que $\tilde{u}=u$. On passe par $\mathcal{D}'(\mathbb{R})$ à cet effet. Pour $\varphi \in \mathcal{D}(\mathbb{R})$, on montre que $(v_n, \varphi) \longrightarrow (u, \varphi)$. En effet, on a par Cauchy-Schwarz :
+$$|(v_n - u, \varphi)| \leq \| v_n - \varphi \|_2 \| \varphi \|_2 \longrightarrow 0 $$
+
+Et de même $(v_n, \varphi) \longrightarrow (\tilde{u}, \varphi)$ car :
+\begin{align*}
+|(v_n-\tilde{u}, \varphi)| & = \left|\int_{\mathbb{R}} (v_n-\tilde{u})\varphi \right| \\
+	& \leq \int_{\mathbb{R}} |v_n-\tilde{u}||\varphi| \ \ \text{inégalité triangulaire} \\
+	& \leq \| v_n-\tilde{u}\|_{\infty} \int_{\mathbb{R}} |\varphi| \longrightarrow 0
+\end{align*}
+Ainsi, $(v_n)$ converge dans $\mathcal{D}'(\mathbb{R})$ vers $u$ et $\tilde{u}$. Par unicité de la limite dans cet espace, on a finalement $u = \tilde{u}$. \\
+
+On peut donc passer à la limite dans $(*)$ et obtenir l'inégalité :
+$$\boxed{\|u\|_{\infty}^2 \leq 2 \|u\|_2 \|u' \|_2 }$$ \\
+
+\textbf{Ex 2.25} - Inégalité de Hardy dans $\mathcal{D}(\mathbb{R}^3)$ \\
+\textbf{1/} C'est une IPP en intégrant $1$ et en dérivant $f^2$. Elle est licite par convergence de deux termes. \\
+
+\textbf{2/} Avec $\psi \in \mathcal{D}( \mathbb{R}^3)$, on a :
+
+\begin{align*}
+\int_{\mathbb{R}^3} \frac{\psi(x)^2}{|x|^2} dx & = \int_0^{\pi} \int_0^{2 \pi} \int_{0}^{\infty} \psi^2(r, \theta, \varphi) \sin (\theta) dr d \theta d \varphi \ \ \text{changement sphérique} \\
+& \leq \int_0^{\pi} \int_0^{2 \pi} \int_{0}^{\infty} 4 \left( \frac{\partial \psi}{\partial r}\right)^2 r^2 \sin (\theta) dr d \theta d \varphi \ \ \text{par 1/} \\
+& \boxed{\leq 4 \int_{\mathbb{R}^3} |\nabla \psi(x)|^2 dx}
+\end{align*}
+Ce qui conclut. \\
+
+\textbf{Ex 2.26} \\
+\textbf{1/} Soit $\psi \in \mathcal{D}(\mathbb{R}^3)$. Les dérivées partielles de $\psi$ sont dans $\mathcal{D}(\mathbb{R}^3)$ donc $\int_{\mathbb{R}^3} |\nabla \psi|^2 < + \infty$. \\
+
+Par ailleurs, un changement sphérique montre que :
+$$\int_{\mathbb{R}^3} \frac{|\psi(x)|^2}{|x|} dx = \int_{0}^{\pi} \int_{0}^{2 \pi} \int_{0}^{+ \infty} r \sin (\theta) |\psi(r, \theta, \varphi)| dr d \theta d \varphi < + \infty $$
+Cela nous assure l'existence de $\mathcal{E}(\psi)$.  \\
+
+\textbf{2/} C'est Cauchy-Schwarz en écrivant $\frac{|\psi (x)|^2}{|x|} = \frac{|\psi (x)|}{|x|} \times |\psi (x)|$, suivi de l'inégalité (2.3). \\
+
+\textbf{3/a)} C'est la densité de $\mathcal{D}(\mathbb{R}^3)$ dans $H^1(\mathbb{R}^3)$ (cf cours). \\
+
+\textbf{b)} Soit $\phi \in \mathcal{D}(\mathbb{R}^3)$. L'inégalité de Hardy dans le cas $\mathcal{D}(\mathbb{R}^3)$ nous assure que $x \mapsto \frac{\phi(x)}{|x|}$ est dans $L^2$. \\
+
+De plus :
+\begin{align*}
+\left| \int_{\mathbb{R}^3} \frac{\psi_n(x) \phi(x)}{|x|} dx - \int_{\mathbb{R}^3} \frac{u(x) \phi(x)}{|x|} dx \right| & \leq \int_{\mathbb{R}^3} \frac{|\psi_n(x) - u(x)||\phi(x)|}{|x|} dx \ \ \text{inégalité triangulaire} \\
+& \leq \left( \int_{\mathbb{R}^3} \frac{|\phi(x)|^2}{|x|^2} \right)^{1/2} \|\psi_n - u  \|_{L^2} \ \ \text{Cauchy-Schwarz} \\
+& \leq \left( \int_{\mathbb{R}^3} \frac{|\phi(x)|^2}{|x|^2} \right)^{1/2} \|\psi_n - u  \|_{H^1} \underset{n \to \infty}{\longrightarrow} 0 \ \ \text{car } \psi_n \rightarrow u \text{ dans } H^1
+\end{align*}
+Par suite :
+$$\boxed{\int_{\mathbb{R}^3} \frac{\psi_n(x) \phi(x)}{|x|} dx \underset{n \to \infty}{\longrightarrow} \int_{\mathbb{R}^3} \frac{u(x) \phi(x)}{|x|} dx}$$  \\
+
+\textbf{c)} On note $f_n:x \mapsto \frac{\psi_n(x)}{|x|}$. Pour $n,m \in \mathbb{N}$,
+\begin{align*}
+\|f_n-f_m\|_{L^2}^2 & \leq 4 \int_{\mathbb{R}^3} |\nabla (\psi_n - \psi_m)|^2 \ \ \text{Hardy dans le cas } \mathcal{D}(\mathbb{R}^3) \\
+& \leq 4 \|\psi_n - \psi_m \|_{H^1}^2 \underset{n,m \to \infty}{\longrightarrow} 0 \ \ (\psi_n) \text{ est de Cauchy dans} H^1 \text{ car y converge}
+\end{align*}
+Donc $(f_n)$ est de Cauchy dans $L^2$. \\
+
+\textbf{d)} Comme $L^2(\mathbb{R}^3)$ est complet et que $(f_n)$ est une suite de Cauchy de cet espace, elle converge dans cet espace vers une fonction $v \in L^2(\mathbb{R}^3)$. \\
+
+\textbf{e)} $(f_n)$ converge vers $v$ dans $L^2$ donc a fortiori dans $\mathcal{D}'(\mathbb{R}^3)$. Par ailleurs, la question $\text{3/a)}$ nous assure que $(f_n)$ converge vers $f:x \mapsto \frac{u(x)}{|x|}$ dans $\mathcal{D}'(\mathbb{R}^3)$. Par unicité de la limite dans $\mathcal{D}'(\mathbb{R}^3)$, on a $f=v$ dans $\mathcal{D}'(\mathbb{R}^3)$ et comme les deux sont $L^2$, l'égalité a lieu dans $L^2$. \\
+
+\textbf{f)} On a :
+\begin{align*}
+\left| \int_{\mathbb{R}^3} \frac{\psi_n(x)^2}{|x|} dx -  \int_{\mathbb{R}^3} \frac{u(x)^2}{|x|} dx \right| & = \left| \int_{\mathbb{R}^3} \frac{\psi_n(x)-u(x)}{|x|}(\psi_n(x)+u(x)) dx \right| \\
+& \leq \int_{\mathbb{R}^3} \frac{|\psi_n(x)-u(x)|}{|x|}|\psi_n(x)+u(x)| dx \ \ \text{inégalité triangulaire} \\
+& \leq \left( \int_{\mathbb{R}^3} \frac{|\psi_n(x)-u(x)|^2}{|x|^2} \right)^{1/2} \left( \int_{\mathbb{R}^3} |\psi_n(x)+u(x)|^2 \right)^{1/2} \ \ \text{C-S} \\
+&\boxed{ = \| (\psi_n-u)/|x| \|_{L^2} \times \| \psi_n + u \|_{L^2}}
+\end{align*}
+Or $\| (\psi_n-u)/|x| \|_{L^2} \rightarrow 0$ (convergence dans $L^2$). Par ailleurs, $(\| \psi_n + u \| _{L^2})$ est bornée car $(\psi_n)$ converge dans $H^1$ donc dans $L^2$ donc y est bornée.
+Ainsi $\| (\psi_n-u)/|x| \|_{L^2} \times \| \psi_n + u \|_{L^2} \rightarrow 0$, puis :
+$$\boxed{\int_{\mathbb{R}^3} \frac{\psi_n(x)^2}{|x|} dx \longrightarrow \int_{\mathbb{R}^3} \frac{u(x)^2}{|x|} dx}$$ \\
+
+\textbf{g)} Les $\phi_n$ sont $\mathcal{D}(\mathbb{R}^3)$ donc on peut leur appliquer (2.4) et ensuite on passe à la limite (ce qui est licite par les questions précédentes) pour obtenir l'inégalité voulue. \\
+
+\textbf{4/} Par inégalité de Hardy (question 3/), pour $u \in \mathcal{A}$,
+$$\mathcal{E}(u) \geq \frac{1}{2} \| \nabla u \|_{L^2}^2 - 2 \| \nabla u \|_{L^2} \geq -2$$
+Par suite $\boxed{I > - \infty}$.
+
+\textbf{Ex 3.10} \\
+Dans tout l'exercice, on appelle (I) le problème aux limites et (II) la formulation variationnelle. 
+
+\textbf{1/} $\boxed{\text{(II)} \implies \text{(I)}}$ \\
+Avec $u \in \Ho$ tel que pour tout $v \in \Ho$, $a(u,v)=b(v)$. \\
+
+Un calcul montre que :
+$$\boxed{\text{div}(A.\nabla u) = \sum_{i=1}^d \sum_{j=1}^d \frac{\partial}{\partial x_i} \left(A_{ij} \frac{\partial u}{\partial x_j} \right)}$$
+Ainsi, pour $\varphi \in \mathcal{D}(\Omega)$, 
+\begin{align*}
+(- \text{div}(A.\nabla u), \varphi) & = \left(- \sum_{i=1}^d \sum_{j=1}^d \frac{\partial}{\partial x_i} \left(A_{ij} \frac{\partial u}{\partial x_j} \right), \varphi \right) \\
+& = - \sum_{i=1}^d \sum_{j=1}^d \left( \frac{\partial}{\partial x_i} \left( A_{ij} \frac{\partial u}{\partial x_j} \right), \varphi \right) \ \ \text{linéarité} \\
+& = \sum_{i=1}^d \sum_{j=1}^d \left(A_{ij} \frac{\partial u}{\partial x_j}, \frac{\partial \varphi}{\partial x_i} \right) \ \ \text{dérivée de distributions} \\
+& = \sum_{i=1}^d \left(\sum_{j=1}^d A_{ij} \frac{\partial u}{\partial x_j}, \frac{\partial \varphi}{\partial x_i} \right) \ \ \text{linéarité} \\
+& = \sum_{i=1}^d \left([A \nabla u]_i, \frac{\partial \varphi}{\partial x_i} \right) \\
+& = (A \nabla u, \nabla \varphi) \\
+& = (f, \varphi) \ \ \text{par (II)}
+\end{align*}
+Ainsi, $\boxed{-\text{div}(A. \nabla u) = f}$ dans $\mathcal{D}'(\Omega)$. \\
+
+$\boxed{\text{(I)} \implies \text{(II)}}$ \\
+Avec $u \in H^1_0(\Omega)$ tq $-\text{div}(A. \nabla u) = f$ dans $\mathcal{D}'(\Omega)$. \\
+
+Pour $\varphi \in \mathcal{D}(\Omega)$,
+\begin{align*}
+b(\varphi) & = (f,\varphi) \\
+& = (-\text{div}(A. \nabla u), \varphi) \ \ \text{par (I)} \\
+& = (A \nabla u, \nabla \varphi)  \ \ \text{même calcul que précédemment} \\
+& = a(u, \varphi)
+\end{align*}
+Donc $\boxed{b(\varphi)=a(u, \varphi)}$ pour tout $\varphi \in \mathcal{D}(\Omega)$. \\
+
+Continuité de $b$. Pour $v \in H^1_0(\Omega)$, 
+\begin{align*}
+|b(v)| & = |\int_{\Omega} f v| \\
+& \leq (\int_{\Omega} |f|^2)^{1/2} (\int_{\Omega} |v|^2)^{1/2} \ \ \text{Cauchy-Schwarz} \\
+& \boxed{\leq \|f\|_2 \|v\|_{H^1(\Omega)}}
+\end{align*}
+Ce qui montre la continuité de $b$. \\
+
+Continuité de $a(u,.)$. On montre carrément la continuité de $a$, qui implique celle de $a(u,.)$ car ça nous sera utile dans la suite. \\
+
+Pour $u,v \in \Ho$, 
+\begin{align*}
+a(u,v) & = \left| \int_{\Omega} \sum_{ij} \frac{\partial v}{\partial x_i} \frac{\partial u}{\partial x_j} A_{ij} \right| \ \ \text{calcul direct} \\
+& = \left| \sum_{ij} \int_{\Omega} \frac{\partial v}{\partial x_i} \frac{\partial u}{\partial x_j} A_{ij} \right| \ \ \text{linéarité} \\
+& \leq \sum_{ij} \int_{\Omega} \left|\frac{\partial v}{\partial x_i} \right| \left| \frac{\partial u}{\partial x_j} \right| \left|A_{ij} \right|  \ \ \text{inégalité triangulaire} \\
+& \leq \|A\|_{\infty} \sum_{ij} \int_{\Omega} \left|\frac{\partial v}{\partial x_i} \right| \left| \frac{\partial u}{\partial x_j} \right| \ \ \text{puisque les } A_{ij} \text{ sont bornées par hypothèse} \\
+& \leq \|A\|_{\infty} \left( \sum_{i} \left(\int_{\Omega} \left| \frac{\partial v}{\partial x_i} \right|^2 \right)^{1/2} \right) \left( \sum_{j} \left(\int_{\Omega} \left| \frac{\partial u}{\partial x_j} \right|^2 \right)^{1/2} \right) \ \ \text{Cauchy-Schwarz} \\
+& \leq \|A\|_{\infty} d^2 \| \nabla u\|_{L^2} \|\nabla v\|_{L^2} \\
+& \boxed{\leq \|A\|_{\infty} d^2 \|u\|_{H^1} \| v\|_{H^1}}
+\end{align*}
+Ce qui montre la continuité de $a$. \\
+
+Ainsi, comme $a(u,.)$ et $b$ sont continues et que $\mathcal{D}(\Omega)$ est dense dans $\Ho$ (par construction), l'égalité précédente est en fait vraie dans $\Ho$ :
+$$\boxed{\forall v \in \Ho, \ a(u,v)=b(v)}$$
+Donc (II) est vérifié. \\
+
+\textbf{Bilan} : (I) et (II) sont équivalents. \\
+
+\textbf{2/} Pour $u \in \Ho$ et $t \in ]0,1[$, 
+\begin{align*}
+a(u,u) & = \int_{\Omega} (\nabla u)(A \nabla u) \\
+& \geq \alpha \int_{\Omega} (\nabla u)^{\top} \nabla u \ \ \text{hypothèse de l'énoncé} \\
+& = \alpha t  \int_{\Omega} (\nabla u)^{T} \nabla u + \alpha (1-t)  \int_{\Omega} (\nabla u)^{T} \nabla u \\
+& \boxed{\geq \alpha t \| \nabla u \|_2^2 + \alpha \frac{1-t}{C_{\Omega}^2} \|u\|_2^2} \ \ \text{Poincaré car} \ \Omega \ \text{ouvert borné} \\
+\end{align*}
+Ainsi, avec $t=\frac{1-t}{C_{\Omega}^2} \in ]0,1[$, en posant $\beta = \alpha t$ on obtient que :
+$$\boxed{a(u,u) \geq \beta \|u\|_{H^1}}$$
+Donc $a$ est coercive. \\
+
+\textbf{3/} On remarque que : \\
+-- $\Ho$ est un Hilbert. \\
+-- $b$ est linéaire et continue. \\
+-- $a$ est bilinéaire, continue et coercive. \\
+
+Par le théorème de \textbf{Lax-Milgram}, (II) admet une unique solution et comme (I) et (II) sont équivalents, (I) admet également une unique solution. \\
+
+\textbf{Ex - Variante de l'ex 3.10} \\
+
+$\boxed{\text{(I)} \implies \text{(II)}}$ Si $u \in \Ho$ vérifie $-\text{div}(A \nabla u) + \lambda u = f$ dans $\mathcal{D}'(\Omega)$. \\
+-- La continuité de $b$ est déjà acquise par l'exerice précédent. \\
+-- Continuité de $a$ (dans cette question, la continuité de $a(u,.)$ suffit mais on montre celle de $a$ car on en a besoin pour la suite). Pour $u,v \in \Ho$, 
+\begin{align*}
+|a(u,v)| & \leq \|A\|_{\infty} d^2 \|u\|_{H^1} \|v\|_{H^1} + \int_{\Omega} |\lambda| |u||v| \ \  \text{IT + Ex précédent} \\
+& \leq \|A\|_{\infty} d^2 \|u\|_{H^1} \|v\|_{H^1} + \|\lambda \|_{\infty} \|u\|_2^2 \|v\|_2^2  \ \ \text{CS + } \lambda \text{ bornée} \\
+& \boxed{\leq (\|A\|_{\infty} d^2 + \|\lambda\|_{\infty}) \|u\|_{H^1} \|v\|_{H^1}}
+\end{align*}
+Donc $a$ est continue. \\
+
+De plus, 
+\begin{align*}
+b(\varphi) & = (f, \varphi) \\
+&= (- \text{div} (A \nabla u) + \lambda u, \varphi) \ \ \text{par (I)} \\
+&= (A \nabla u, \varphi) + (\lambda u, \varphi) \ \ \text{par calcul de l'exo précédent} \\
+& \boxed{= a(u, \varphi)}
+\end{align*}
+Pour les mêmes raisons que dans l'exercice précédent, l'égalité précédente est en fait vraie $H^1(\Omega)$ et on obtient ainsi (II). \\
+
+$\boxed{\text{(II)} \implies \text{(I)}}$ Avec $u \in \Ho$ tel que pour tout $v \in \Ho$, $a(u,v)=b(v)$. Alors pour tout $\varphi \in \mathcal{D}(\Omega)$,
+\begin{align*}
+(-\text{div}(A \nabla u)+ \lambda u, \varphi) &= (-\text{div}(A \nabla u), \varphi) + (\lambda u, \varphi) \\
+&= (A \nabla u, \varphi) + (\lambda u, \varphi) \ \ \text{Même calcul que l'ex précédent} \\
+&= a(u,\varphi) \\
+&= b(\varphi) \ \ \text{par (II)} \\
+& \boxed{=(f, \varphi)}
+\end{align*}
+Ainsi $\boxed{-\text{div}(A \nabla u)+ \lambda u = f}$ dans $\mathcal{D}'(\Omega)$. \\
+
+Les deux problèmes sont donc équivalents. \\
+
+\textbf{2/} Pour $u \in H^1(\Omega)$,
+\begin{align*}
+a(u,u) & = \int_{\Omega} (\nabla u)^T (A \nabla u) + \int_{\Omega} \lambda u^2 \\
+& \geq  \alpha \int_{\Omega} (\nabla u)^T \nabla u + \alpha \int_{\Omega} u^2 \ \ \text{Hypothèses de l'énoncé} \\
+& \boxed{= \alpha \|u\|_{H^1}^2}
+\end{align*}
+D'où la coercivité voulue. \\
+
+\textbf{3/} Même conclusion que dans l'exercice précédent. . .
+
+\end{document}

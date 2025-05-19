@@ -1,0 +1,220 @@
+\documentclass[a4paper,12pt]{article}
+
+% Packages
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{lipsum} % Pour générer du faux texte. À retirer dans le document final.
+\usepackage{natbib}
+
+% Paramètres de la page
+\geometry{top=2.5cm, bottom=2.5cm, left=3cm, right=3cm}
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Caucheteux Maxence}
+\lhead{Exercices EDP}
+\rfoot{Page \thepage/\pageref{LastPage}}
+\renewcommand{\headrulewidth}{2pt}
+\renewcommand{\footrulewidth}{1pt}
+\setlength{\parindent}{0pt}
+
+% Titre du document
+\title{Exercices EDP}
+\author{Maxence Caucheteux}
+\date{\today}
+
+% Macros
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\prob}{\mathbb{P}}
+\newcommand{\R}{\mathfrak{R}_0}
+
+
+\begin{document}
+
+\maketitle
+
+\textbf{Exercice 1.71} \\
+Pour $K$ compact de $\mathbb{R}^2$. Avec $K=K_1 \times K_2$ où $K_1$,$K_2$ compacts de $\mathbb{R}$. Pour $\varphi \in \mathcal{D}_{K}(\mathbb{R}^2)$,
+\begin{align*}
+    |(T, \varphi)| & = \left| \int_{0}^{+ \infty} \varphi(z,2z) dz \right| \\
+         & \leq  \int_{0}^{+ \infty} |\varphi(z,2z)| dz \ \ \text{inégalité triangulaire} \\
+         & = \int_{[0, +\infty[ \cap K_1} |\varphi(z,2z)|dz \\
+         & \boxed{\leq \lambda([0,+ \infty[ \cap K_1) \| \varphi \|_{\infty}}
+\end{align*}
+Et $\lambda([0,+ \infty[ \cap K_1) < + \infty$ car $K_1$ est un compact de $\mathbb{R}$. Ainsi, $T$ définit une distribution. \\
+
+Pour $\varphi \in \mathcal{D}(\mathbb{R})$,
+
+\begin{align*}
+    (\frac{\partial T}{ \partial x} + 2\frac{\partial T}{ \partial x} , \varphi) & = -(T, \frac{\partial \varphi}{\partial x})-2(T, \frac{\partial \varphi}{\partial y}) \\
+    & = -\int_{0}^{+ \infty} (\frac{\partial \varphi}{\partial x} (z,2z) + 2 \frac{\partial \varphi}{\partial x}(z,2z)) dz \\
+    & = - \int_{0}^{+ \infty} \nabla \varphi(\gamma(z)).\gamma ' (z) dz
+\end{align*}
+avec $\gamma : z \mapsto (z, 2z)$. \\
+Puis :
+\begin{align*}
+    (\frac{\partial T}{ \partial x} + 2\frac{\partial T}{ \partial x} , \varphi) & = - \int_{0}^{+ \infty} (\varphi \circ \gamma) ' (t) dt \\
+    			& = [\varphi \circ \gamma(z)]_{0}^{+ \infty} \\
+    			& = \varphi(0,0) \\
+    			& \boxed{= (\delta_{(0,0)}, \varphi)}
+\end{align*}
+
+Par suite :
+$$\boxed{\frac{\partial T}{\partial x} + 2 \frac{\partial T}{\partial y} = \delta_{(0,0)}}$$
+
+
+\textbf{Exercice 1.72} \\
+\textbf{1/} Pour $x \neq 0$, $v_n(x) \underset{n\to+\infty}{\longrightarrow} 0$ et pour $x=0$, $v_n(0)=n \underset{n\to+\infty}{\longrightarrow} \infty$. \\
+
+Ainsi, $\boxed{v_n \xrightarrow[n \infty]{\text{CVS}} v = 0}$ presque partout. \\
+
+\textbf{2/} Pour $\alpha > 0$,
+\begin{align*}
+     \int_{]- \infty, - \alpha[ \cup ]\alpha, + \infty[} |v_n(x)|dx & = \int_{- \infty}^{- \alpha} \frac{n}{1+n^2 x^2} dx + \int_{\alpha}^{+ \infty} \frac{n}{1+n^2 x^2} dx \\
+     & =  \int_{- \infty}^{-n \alpha} \frac{du}{1+u^2} du + \int_{n \alpha}^{+ \infty} \frac{du}{1+u^2} du \ \ \text{cdv} \ u=nx \\ 
+     & \boxed{= \pi -2 \operatorname{Arctan}(n \alpha) \longrightarrow 0}
+\end{align*}
+Ainsi, $\boxed{v_n \longrightarrow 0$ dans $L^1(]- \infty, - \alpha[ \cup ]\alpha, + \infty[)}$. \\
+
+\textbf{3/} $w_n$ définit une distribution car elle est $L^1_{\text{loc}}$. Pour $\varphi \in \mathcal{D}(\mathbb{R})$,
+\begin{align*}
+    (w_n, \varphi) & = \int_{- \infty}^{+ \infty} w_n(x) \varphi(x) dx \\ 
+    			& = \int_K g_n(x) dx
+\end{align*}
+avec $K= \text{Supp}(\varphi)$ compact, $g_n(x) = \operatorname{Arctan}(nx) \varphi(x)$. Les $g_n$ sont mesurables et $g_n(x)\underset{n \to \infty}{\longrightarrow} \frac{\pi}{2} \text{sgn}(x)$. De plus, pour $n \in \mathbb{N}$, $x \in \mathbb{R}$, $|g_n(x)| \leq \frac{\pi}{2} \|\varphi\|_{\infty}$ intégrable sur $K$. Si bien que par convergence dominée, 
+$$\boxed{(w_n, \varphi)=\int_{K} g_n(x)dx \underset{n \to \infty}{\longrightarrow} \int_K \frac{\pi}{2} \text{sgn}(x) \varphi(x) dx = (\frac{\pi}{2} \text{sgn}, \varphi)}$$
+On conclut que $\boxed{w_n \underset{n \to \infty}{\longrightarrow} \frac{\pi}{2} \text{sgn}}$ dans $\mathcal{D}'(\mathbb{R})$. \\
+
+\textbf{4/} $v_n$ est $L^1_{\text{loc}}$ donc définit une distribution. Pour $\varphi \in \mathcal{D}(\mathbb{R})$,
+\begin{align*}
+     (v_n, \varphi) & = \int_{\mathbb{R}} \frac{n}{1+n^2 x^2} \varphi(x) dx \\
+     & = \int_{\mathbb{R}}  \frac{\varphi(u/n)}{1+u^2} du \ \ \text{cdv} \ u=nx \\ 
+     & = \int_{\mathbb{R}} g_n(u) du
+\end{align*}
+avec $g_n(u) = \frac{\varphi(u/n)}{1+u^2}$. Les $g_n$ sont mesurables car continues et pour $u \in \mathbb{R}$, $g_n(u) \underset{n \to \infty}{\longrightarrow} \frac{\varphi(0)}{1+u^2}$. De plus pour $n \in \mathbb{N}$, $u \in \mathbb{R}$, $|g_n(u)| \leq \frac{\| \varphi \|_{\infty}}{1+u^2}$ intégrable sur $\mathbb{R}$ car continue sur $\mathbb{R}$ et intégrable en $\pm \infty$ par Riemann. La convergence dominée nous donne donc :
+$$\boxed{(v_n, \varphi) \underset{n \to \infty}{\longrightarrow} \int_{\mathbb{R}} \frac{\varphi(0)}{1+u^2} du  = \pi \varphi(0)}$$
+D'où $(v_n, \varphi) \underset{n \to \infty}{\longrightarrow} (\pi \delta_0, \varphi)$ pour tout $\varphi \in \mathcal{D}(\mathbb{R})$ i.e. $\boxed{v_n \underset{n \to \infty}{\longrightarrow} \pi \delta_0$ dans $\mathcal{D}(\mathbb{R)}}$. \\
+
+\textbf{Exercice 1.77}
+
+\textbf{1/} Si $f \in L^1_{\text{loc}}$, $F$ est également $L^1_{\text{loc}}$, par exemple car pour $K \subset \mathbb{R}$ compact,
+\begin{align*}
+     \int_K |F(x)| dx  & = \int_K \left| \int_{0}^x f(t)dt \right| dx \\
+     & \leq \int_K \left| \int_0^x |f(t)| dt \right| dx \ \ \textbf{(*)} \\
+     & \leq  \int_K \int_{x_1}^{x_2} |f(t)| dt dx \ \ \text{avec} \  x_1 = \inf K, \ x_2 = \sup K \\
+     & \boxed{\leq \lambda(K) \int_{x_1}^{x_2} |f(t)| dt < + \infty} \ \ \text{car} f\in L^1_{\text{loc}}
+\end{align*}
+Ce qui conclut. \\
+
+\textbf{(*)} : Inégalité triangulaire, mais on doit bien garder les deux modules car si on ne met pas les deux et que $x<0$ on majore par un truc négatif, ce qui est terrifiant humainement parlant. \\
+
+Montrons maintenant que $\frac{dF}{dx} = f$ au sens des distributions.
+
+\textbf{2/} On traite d'abord le cas où $f$ est continue. Avec $f$ continue, une \textbf{IPP} (licite car tout est donc $C^1$ et par convergence de deux termes) nous donne le résultat :
+\begin{align*}
+     (\frac{dF}{dx}, \varphi)  & = - \int_{\mathbb{R}} F(x) \varphi'(x) dx \\
+	& = -[F(x) \varphi(x)]_{- \infty}^{+ \infty} + \int_{\mathbb{R}} F'(x) \varphi(x) dx \ \ \text{IPP licite}
+\end{align*}
+Le premier terme étant nul car $\varphi$ est à support compact et en se rappelant que $F'=f$, on obtient $(\frac{dF}{dx}, \varphi) = (f, \varphi)$, puis $\frac{dF}{dx} = f$. \\
+
+\textbf{3/} Cas général : si $f$ est simplement $L^1_{\text{loc}}$.  Soit $\varphi \in \mathcal{D}(\mathbb{R})$. Soit $\varepsilon > 0$. On note $K$ le support de $\varphi$ qui est donc compact. On a donc $f \in L^1(K)$. Par \textbf{densité} des fonctions continues dans $L^1(K)$, il existe $g$ continue telle que $\|f-g\|_1 \leq \varepsilon$. On écrit :
+
+\begin{align*}
+     |(\frac{dF}{dx}-f, \varphi)|  & = |-(F, \varphi ')-(f, \varphi)| \\
+     & = |-(F-G, \varphi ')-(G, \varphi ')-(f, \varphi)| \\
+     & = |-(F-G, \varphi ')+(\frac{dG}{dx}, \varphi )-(f, \varphi)| \\
+     & = |-(F-G, \varphi ')+(g, \varphi )-(f, \varphi)| \ \ \text{par \textbf{2/}} \\
+     & = |-(F-G, \varphi ')+(g-f, \varphi)| \\
+     & \leq |(F-G, \varphi ')| + |(g-f, \varphi)| \ \ \text{inégalité triangulaire}
+\end{align*}
+Or, on remarque que :
+\begin{align*}
+     |(F-G, \varphi ')| & = \left| \int_K \left( \int_0^x (f(t)-g(t))dt \right) \varphi '(x) dx \right| \\
+     & \leq \int_K \left| \int_0^x |f(t)-g(t)|dt \right| |\varphi '(x)| dx \ \ \text{inégalité triangulaire} \\
+     & \leq \| \varphi ' \|_{\infty} \lambda(K) \| f-g \|_1 \\
+     & \boxed{\leq \|\varphi ' \|_{\infty} \lambda(K) \varepsilon}
+\end{align*}
+
+De même, par inégalité triangulaire :
+$$\boxed{|(g-f, \varphi)| = \left|\int_K (f(t)-g(t)) \varphi(t) dt \right| \leq \|\varphi\|_{\infty} \|f-g\|_1 \leq \|\varphi\|_{\infty} \varepsilon}$$
+Si bien que :
+$$\boxed{\left| \left(\frac{dF}{dx}-f, \varphi \right) \right| \leq (\|\varphi\|_{\infty} + \lambda(K) \|\varphi '\|_{\infty}) \varepsilon}$$
+Cela étant vrai quel que soit $\varepsilon > 0$, on obtient finalement $(\frac{dF}{dx}-f, \varphi)=0$. Cela étant vrai pour tout $\varphi$, on a finalement le résultat voulu :
+$$\boxed{\frac{dF}{dx} = f}$$ 
+
+\textbf{Exercice ajouté 1} \\
+On a vu que pour $f \in H^1$ :
+$$\boxed{\|f\|_{H^1}^2 = \|f\|^2_{L^2} + \| \nabla f \|_{L^2}^2}$$
+Pour $f \in H^2$, on a :
+$$\boxed{\|f\|_{H^2}^2 = \|f\|^2_{L^2} + \| \nabla f \|_{L^2}^2 + \sum_{i=1}^n \sum_{j=1}^n \left|\left| \frac{\partial^2 f}{\partial x_i \partial x_j} \right|\right|^2_{L^2}}$$
+Ce que l'on peut écrire à l'aide de la matrice Hessienne $H_f$ de $f$ :
+$$\boxed{\|f\|_{H^2}^2=\|f\|_{H^2}^2 = \|f\|^2_{L^2} + \| \nabla f \|_{L^2}^2 + \|H_f\|^2_{L^2}}$$
+
+\textbf{Exercice 1.70} \\
+Soit $K \subset \mathbb{R}$ un compact. Pour $\varphi \in \mathcal{D}(\mathbb{R})$, on a :
+\begin{align*}
+	|(T, \varphi)| & = |\sum_{n=1}^{+ \infty} \frac{1}{n} (\varphi(\frac{1}{n}) - \varphi(0))| \\
+	& \leq \sum_{n=1}^{+ \infty} \frac{1}{n} | \varphi(\frac{1}{n}) - \varphi(0)|
+\end{align*}
+Par inégalité des accroissements finis, $|\varphi(\frac{1}{n}) - \varphi(0)| \leq  \frac{1}{n} \| \varphi ' \|_{\infty}$ pour tout $n \in \mathbb{N}$. Par suite :
+$$|(T, \varphi)| \leq \sum_{n=1}^{+ \infty} \frac{\| \varphi '\|_{\infty}}{n^2} = \frac{\pi^2}{6} \| \varphi ' \|_{\infty}$$
+$T$ est donc une donc une distribution d'ordre $ \leq 1$. \\
+
+\textbf{Exercice 1.73} \\ 
+\textbf{1/} Il est clair que $f_n \xrightarrow[n \infty]{\text{CVS}} 0$ car $f$ est à support compact. \\
+
+Cependant, on n'a pas la convergence dans $L^1(\mathbb{R})$ car :
+\begin{align*}
+\int_{\mathbb{R}} |f_n(x)| dx & = \int_{\mathbb{R}} |f(x-n)|dx \\
+	& \leq \int_{\mathbb{R}} |f(u)| du \ \ \text{cdv} \ u=x-n \\
+	& = \| f \|_{1} \xrightarrow[n \infty]{\text{CVS}} \|f\|_1 > 0 
+\end{align*}
+excepté si $f=0$ presque partout, mais on choisit $f$ non nulle dans $L^1$ pour éviter ce cas. \\
+Ainsi on n'a pas la convergence de $(f_n)$ vers $0$ dans $L^1$. \\
+
+\textbf{2/} \\
+\textbf{Lemme 1} \\
+$G = a \mathbb{Z} + b \mathbb{Z}$ est dense dans $\mathbb{R}$ \textbf{ssi} $a/b \in \mathbb{Q}$. \\
+
+\textbf{Sens direct} : On suppose que $a/b \notin \mathbb{Q}$. Si par l'absurde on avait $G=m \mathbb{Z}$ avec $m>0$. Alors comme $a,b \in G$, on peut écrire $a=mp$, $b=mq$ avec $p, q \in \mathbb{Z}$. Ainsi $a/b=p/q \in \mathbb{Z}$, ce qui est absurde. Donc $G$ n'est pas de la forme $m \mathbb{Z}$. Un résultat bien connu sur les sous-groupes de $\mathbb{R}$ nous assure alors que $G$ est dense dans $\mathbb{R}$. \\
+
+\textbf{Sens indirect} : C'est essentiellement Bézout. En effet, si $a/b=p/q$ avec $p, q$ deux entiers premiers entre eux. Alors :
+\begin{align*}
+a\mathbb{Z}+b \mathbb{Z} & = \frac{p}{q}b \mathbb{Z} + b \mathbb{Z} \\
+	&= \frac{b}{q} (p \mathbb{Z} + q\mathbb{Z}) \\
+	& \boxed{=\frac{b}{q} \mathbb{Z}} \ \ \text{Bézout}
+\end{align*}
+Ce qui conclut : $G$ est de la forme voulue. \\
+
+\textbf{Lemme 2} \\
+La suite $u=(e^{in\alpha})_{n \in \mathbb{N}}$ est dense dans $\mathbb{U}$ \textbf{ssi} $\frac{\alpha}{\pi} \in \mathbb{R} \backslash \mathbb{Q}$. \\
+
+\textbf{Sens direct} : Immédiat car la suite prend un nombre fini de valeurs. \\
+
+\textbf{Sens indirect} : Notons $g:x\mapsto e^{ix}$ l'exponentielle complexe. On pose $G = \alpha \mathbb{Z} + 2 \pi \mathbb{Z}$. On note que $G$ est un sous-groupe de $\mathbb{Z}$. On pose $V=\{ u_n \ | \ n \in \mathbb{Z} \}$. On a alors :
+$$\boxed{g(G) = V}$$
+Par \textbf{lemme 1}, comme $\frac{\alpha}{\pi} \in \mathbb{R} \backslash \mathbb{Q}$, $G$ est dense dans $\mathbb{R}$. Par continuité de $g$, on a donc également la densité de $V$ dans $\mathbb{U}$. \\
+
+Cela prouve que $(e^{in \alpha})_{n \geq 0}$ diverge. En effet, si par l'absurde elle convergeait, $(e^{-in \alpha})_{n \geq 0}$ convergerait aussi (raisonner sur la partie réelle et imaginaire) et donc on n'aurait pas la densité prédite par ce qui précède. \\
+
+Ainsi, $(f_n(x))_{n \geq 0}$ diverge pour tout $x \in \mathbb{R} \backslash \mathbb{Q}$ donc presque partout. \\
+
+Cependant que : pour $\varphi \in \mathcal{D}(\mathbb{R})$, avec $K = \text{Supp}(\varphi)$, 
+\begin{align*}
+(f_n, \varphi) & = \int_{\mathbb{R}} e^{inx} \varphi(x) dx \\
+	& \boxed{= \int_{K} e^{inx} \varphi(x) dx \underset{n \to + \infty}{\longrightarrow} 0 \ \ \text{Riemann-Lebesgue}}
+\end{align*}
+Donc on a la convergence de $(f_n)$ vers $0$ dans $\mathcal{D}'(\mathbb{R})$. \\
+
+\textbf{3/} La question est fausse. \\
+
+\textbf{4/} $(f_n(x))$ converge vers $0$ pour tout $x \neq 0$ par croissances comparées puisque $\sigma_n \longrightarrow 0$. \\
+
+Un changement de variable suivi d'un TCD (non rédigé car j'ai la MMC à rattraper) montre la convergence souhaitée dans $\mathcal{D}'(\mathbb{R})$.
+
+\end{document}
